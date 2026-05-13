@@ -2,32 +2,29 @@
 
 function recursion (obj) {
 
-  function deepClone(newObj) {
-    if (typeof newObj !== 'object') return newObj
-    if (!Array.isArray(newObj)) {
-    const obj = {}
+    if (typeof obj !== 'object') return obj
+    if (!Array.isArray(obj)) {
+    const newObj = {}
 
-    for(let key in newObj) {
-      if (typeof newObj[key] !== 'object') {
-        obj[key] = newObj[key]
+    for(let key in obj) {
+      if (typeof obj[key] !== 'object') {
+        newObj[key] = obj[key]
       } else {
-        obj[key] = deepClone(newObj[key])
+        newObj[key] = recursion(obj[key])
       }
     }
-    return obj
+    return newObj
   } else {
     let temp = []
-    for (let item of newObj) {
+    for (let item of obj) {
       if (!Array.isArray(item)) {
         temp.push(item)
       } else {
-        temp.push(deepClone(item))
+        temp.push(recursion(item))
       }
     }
     return temp}
   }
-  return deepClone(obj)
-}
 
 const obj = {
   name: 'Jon',
@@ -37,7 +34,8 @@ const obj = {
   }
 }
 
-console.log( recursion(obj))
+const newObj = recursion(obj)
+console.log(obj === newObj)
 console.log( recursion([1,[2,6],3]))
 console.log( recursion('id'))
 console.log( recursion(5))
@@ -113,7 +111,7 @@ function recursion1(arr) {
       if (!Array.isArray(item)) {
         result.push(item)
       } else {
-        result.push(deepClone(item)) 
+        deepClone(item)
       }
     }
   }
