@@ -99,24 +99,23 @@ function matrix(n) {
       return matrix 
     } 
       
+
       matrix(3)
 
 // 1. Написать приложение, получающее массив с вложенными массивами и возвращающее его “плоскую” версию. Встроенный метод массивов flat использовать нельзя.
 
 function recursion1(arr) {
   let result = []  
-
-  function deepClone(newArr) {
-    for (let item of newArr) {
+    for (let item of arr) {
       if (!Array.isArray(item)) {
         result.push(item)
       } else {
-        deepClone(item)
+      let nestedArr = recursion1(item)
+      for (let item of nestedArr) {
+        result.push(item)
       }
-    }
+      }
   }
-  
-  deepClone(arr)
   return result
 }
 //У меня здесь ошибка, выводит undefined 
@@ -150,3 +149,5 @@ function solution (arr) {
 }
 
 console.log(solution([-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20]))
+
+
